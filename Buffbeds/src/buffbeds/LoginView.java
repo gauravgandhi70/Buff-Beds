@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -42,9 +43,11 @@ public class LoginView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	Connection connection = null;
 	public LoginView() {
 		textUsername.setBounds(197, 67, 99, 20);
 		textUsername.setColumns(10);
+		connection = SqliteConnection.dbConnector();
 		initGUI();
 	}
 	private void initGUI() {
