@@ -1,6 +1,6 @@
 package buffbeds;
 import java.sql.*;
-import java.swing.*;
+import javax.swing.*;
 
 import javax.swing.JOptionPane;
 
@@ -10,8 +10,7 @@ public class SqliteConnection {
 	public static Connection dbConnector() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\akshi\\Desktop\\Buff-Beds\\BuffBed.sqlite");
-			JOptionPane.showMessageDialog(null, "Connection Successful");
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Sarang\\eclipse-workspace\\Buffbeds\\dbResources\\BuffBed.sqlite");
 			return connection;
 		}catch(Exception e)
 		{
