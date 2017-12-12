@@ -1,9 +1,19 @@
 package buffbeds;
 
 public class SearchByPeople {
-
-	public SearchByPeople() {
-		// Default constructor stub
+	
+	private int noOfPeople;
+	
+	public SearchByPeople()
+	{
+		
 	}
 
+	public int getNoOfPeople() {
+		return noOfPeople;
+	}
+
+	public void setNoOfPeople(int noOfPeople) {
+		this.noOfPeople = noOfPeople;
+	}
 }
