@@ -1,9 +1,22 @@
 package buffbeds;
 
 public class SearchByLocation {
-
-	public SearchByLocation() {
-		// Default constructor stub
+	
+	private String Location;
+	
+	public SearchByLocation()
+	{
+		
 	}
+
+	public String getLocation() {
+		return Location;
+	}
+
+	public void setLocation(String dateRange) {
+		this.Location = dateRange;
+	}
+	
+	
 
 }
