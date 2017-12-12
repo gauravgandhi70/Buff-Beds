@@ -62,13 +62,13 @@ public class CustSignup extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblNewLabel.setBounds(67, 77, 77, 14);
+		lblNewLabel.setBounds(45, 77, 99, 14);
 		
 		contentPane.add(lblNewLabel);
-		lblPhoneNumber.setBounds(67, 111, 77, 14);
+		lblPhoneNumber.setBounds(45, 111, 99, 14);
 		
 		contentPane.add(lblPhoneNumber);
-		lblNewLabel_1.setBounds(67, 142, 77, 14);
+		lblNewLabel_1.setBounds(45, 142, 99, 14);
 		
 		contentPane.add(lblNewLabel_1);
 		
@@ -95,6 +95,11 @@ public class CustSignup extends JFrame {
 					
 					LoginView new_login = new LoginView();
 					dispose();
+					try {
+						connection.close();
+					}catch(Exception ex) {
+						ex.printStackTrace();
+					}
 					new_login.setVisible(true);
 					
 				}catch(Exception ex) {
