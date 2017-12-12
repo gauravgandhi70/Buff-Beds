@@ -76,30 +76,55 @@ public class LoginView extends JFrame {
 					prep_state.setString(1, textUsername.getText());
 					prep_state.setString(2, textPassword.getText());
 					ResultSet res_set = prep_state.executeQuery();
-					
+					//prep_state.close();
 					if(res_set.next()) {
 						//JOptionPane.showMessageDialog(null, res_set.getString("AccessType"));
 						if(res_set.getString("AccessType").equals("Admin")) {
 						//see to open which view
+							prep_state.close();
+							try {
+								connection.close();
+							}catch(Exception ex) {
+								ex.printStackTrace();
+							}
 							AdminView admin_view = new AdminView();
 							dispose();
 							admin_view.setVisible(true);
+							
 						}
 						else if(res_set.getString("AccessType").equals("Customer")) {
-							UserView user_view = new UserView();
+							prep_state.close();
+							try {
+								connection.close();
+							}catch(Exception ex) {
+								ex.printStackTrace();
+							}
+							UserView user_view = new UserView(textUsername.getText());
 							dispose();
 							user_view.setVisible(true);
+							
 						}
 						else if(res_set.getString("AccessType").equals("Host")) {
-							//do something for host
+							prep_state.close();
+							try {
+								connection.close();
+							}catch(Exception ex) {
+								ex.printStackTrace();
+							}
+							HostView host_view = new HostView(textUsername.getText());
+							dispose();
+							host_view.setVisible(true);
+							
 						}
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Wrong Password");
 					}
 				}catch(Exception ex) {
-					JOptionPane.showMessageDialog(null, "cant open");
+					ex.printStackTrace();
+					//JOptionPane.showMessageDialog(null, "cant open");
 				}
+				
 				
 			}
 		});
@@ -110,6 +135,11 @@ public class LoginView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SignupAsView sign_up_choice = new SignupAsView();
 				setVisible(false);
+//				try {
+//					connection.close();
+//				}catch(Exception ex) {
+//					ex.printStackTrace();
+//				}
 				sign_up_choice.setVisible(true);
 			}
 		});
