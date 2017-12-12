@@ -73,12 +73,12 @@ public class SignupAsView extends JFrame {
 		contentPane.add(NewCustRadButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(choice ==1) {
+				if(choice ==2) {
 					CustSignup customer_form = new CustSignup();
 					setVisible(false);
 					customer_form.setVisible(true);				
 				}
-				else if(choice == 2) {
+				else if(choice == 1) {
 					HostSignup host_form = new HostSignup();
 					setVisible(false);
 					host_form.setVisible(true);
