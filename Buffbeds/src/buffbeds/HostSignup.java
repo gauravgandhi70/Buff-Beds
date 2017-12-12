@@ -66,13 +66,13 @@ public class HostSignup extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblHostNamr.setBounds(89, 49, 89, 14);
+		lblHostNamr.setBounds(81, 49, 97, 14);
 		
 		contentPane.add(lblHostNamr);
 		lblHotelAddress.setBounds(81, 144, 97, 14);
 		
 		contentPane.add(lblHotelAddress);
-		lblZipCode.setBounds(89, 77, 89, 14);
+		lblZipCode.setBounds(81, 77, 97, 14);
 		
 		contentPane.add(lblZipCode);
 		
@@ -117,6 +117,11 @@ public class HostSignup extends JFrame {
 					
 					LoginView new_login = new LoginView();
 					dispose();
+					try {
+						connection.close();
+					}catch(Exception ex) {
+						ex.printStackTrace();
+					}
 					new_login.setVisible(true);
 					
 				}catch(Exception ex) {
