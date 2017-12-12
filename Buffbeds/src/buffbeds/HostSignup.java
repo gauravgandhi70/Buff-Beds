@@ -7,87 +7,144 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class HostSignup extends JFrame {
 
 	private JPanel contentPane;
-	private final JLabel lblHostNamr = new JLabel("Host Name:");
+	private final JLabel lblHostNamr = new JLabel("New Host Name:");
 	private final JLabel lblHotelAddress = new JLabel("Hotel Address:");
-	private final JLabel lblLine = new JLabel("Line1:");
-	private final JLabel lblLine_1 = new JLabel("Line2:");
-	private final JLabel lblZipCode = new JLabel("Zip Code:");
-	private final JTextField textField = new JTextField();
-	private final JTextField textField_1 = new JTextField();
-	private final JTextField textField_2 = new JTextField();
-	private final JTextField textField_3 = new JTextField();
-	private final JLabel lblPhoneNumber = new JLabel("Phone Number:");
-	private final JTextField textField_4 = new JTextField();
+	private final JLabel lblZipCode = new JLabel("New Password:");
+	private final JTextField textHostName = new JTextField();
+	private final JTextField textAddress = new JTextField();
+	private final JLabel lblPhoneNumber = new JLabel("Capacity:");
+	private final JTextField textCapacity = new JTextField();
 	private final JButton btnSignup = new JButton("Signup");
+	private final JTextField textPrice = new JTextField();
+	private final JLabel lblPrice = new JLabel("Price:");
+	private final JPasswordField passwordField = new JPasswordField();
+	private final JTextField textEmail = new JTextField();
+	private final JLabel lblEmail = new JLabel("Email:");
+	Connection connection=null;
 
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HostSignup frame = new HostSignup();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	
 	/**
 	 * Create the frame.
 	 */
 	public HostSignup() {
-		textField_2.setBounds(180, 135, 142, 20);
-		textField_2.setColumns(10);
-		textField_1.setBounds(181, 104, 141, 20);
-		textField_1.setColumns(10);
-		textField.setBounds(180, 54, 142, 20);
-		textField.setColumns(10);
+		textHostName.setBounds(180, 46, 142, 20);
+		textHostName.setColumns(10);
+		connection = SqliteConnection.dbConnector();
 		initGUI();
 	}
 	private void initGUI() {
 		setTitle("BuffBeds-Host Signup");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 470, 338);
+		setBounds(100, 100, 470, 304);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblHostNamr.setBounds(103, 57, 67, 14);
+		lblHostNamr.setBounds(89, 49, 89, 14);
 		
 		contentPane.add(lblHostNamr);
-		lblHotelAddress.setBounds(103, 82, 97, 14);
+		lblHotelAddress.setBounds(81, 144, 97, 14);
 		
 		contentPane.add(lblHotelAddress);
-		lblLine.setBounds(134, 107, 37, 14);
-		
-		contentPane.add(lblLine);
-		lblLine_1.setBounds(134, 138, 37, 14);
-		
-		contentPane.add(lblLine_1);
-		lblZipCode.setBounds(103, 169, 67, 14);
+		lblZipCode.setBounds(89, 77, 89, 14);
 		
 		contentPane.add(lblZipCode);
 		
-		contentPane.add(textField);
+		contentPane.add(textHostName);
+		textAddress.setColumns(10);
+		textAddress.setBounds(180, 141, 142, 20);
 		
-		contentPane.add(textField_1);
-		
-		contentPane.add(textField_2);
-		textField_3.setColumns(10);
-		textField_3.setBounds(180, 166, 142, 20);
-		
-		contentPane.add(textField_3);
-		lblPhoneNumber.setBounds(73, 200, 97, 14);
+		contentPane.add(textAddress);
+		lblPhoneNumber.setBounds(104, 175, 58, 14);
 		
 		contentPane.add(lblPhoneNumber);
-		textField_4.setColumns(10);
-		textField_4.setBounds(180, 197, 142, 20);
+		textCapacity.setColumns(10);
+		textCapacity.setBounds(180, 172, 142, 20);
 		
-		contentPane.add(textField_4);
+		contentPane.add(textCapacity);
 		btnSignup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//write something after host signup
+				try {
+					String sql_query = "insert into HotelInfo (Hostname,Email,Address,Capacity,Price) values (?,?,?,?,?)";
+					PreparedStatement prep_state = connection.prepareStatement(sql_query);
+					prep_state.setString(1, textHostName.getText());
+					prep_state.setString(3, textAddress.getText());
+					prep_state.setString(2, textEmail.getText());
+					prep_state.setString(4, textCapacity.getText());
+					prep_state.setString(5, textPrice.getText());
+					prep_state.execute();
+					
+					prep_state.close();
+					
+					String sql_query_1 = "insert into UserInfo (Username,Email,Password,AccessType) values (?,?,?,?)";
+					PreparedStatement prep_state_1 = connection.prepareStatement(sql_query_1);
+					prep_state_1.setString(1, textHostName.getText());
+					prep_state_1.setString(3, passwordField.getText());
+					prep_state_1.setString(2, textEmail.getText());
+					prep_state_1.setString(4, "Host");
+					prep_state_1.execute();
+					
+					prep_state_1.close();
+					
+					JOptionPane.showMessageDialog(null, "Sucess:Please log in with new ID");
+					
+					LoginView new_login = new LoginView();
+					dispose();
+					new_login.setVisible(true);
+					
+				}catch(Exception ex) {
+					//JOptionPane.showMessageDialog(null, "cannot set");
+					ex.printStackTrace();
+				}
 			}
 		});
-		btnSignup.setBounds(212, 240, 89, 23);
+		btnSignup.setBounds(207, 234, 89, 23);
 		
 		contentPane.add(btnSignup);
+		textPrice.setColumns(10);
+		textPrice.setBounds(180, 203, 142, 20);
+		
+		contentPane.add(textPrice);
+		lblPrice.setBounds(132, 206, 38, 14);
+		
+		contentPane.add(lblPrice);
+		passwordField.setBounds(180, 74, 142, 20);
+		
+		contentPane.add(passwordField);
+		textEmail.setColumns(10);
+		textEmail.setBounds(180, 105, 142, 20);
+		
+		contentPane.add(textEmail);
+		lblEmail.setBounds(116, 102, 46, 14);
+		
+		contentPane.add(lblEmail);
 	}
 
 }
