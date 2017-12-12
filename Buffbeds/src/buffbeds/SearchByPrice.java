@@ -1,9 +1,21 @@
 package buffbeds;
 
 public class SearchByPrice {
-
-	public SearchByPrice() {
-		// Default constructor stub
+	private float priceRange;
+	
+	public SearchByPrice()
+	{
+		
 	}
+
+	public float getPriceRange() {
+		return priceRange;
+	}
+
+	public void setPriceRange(float priceRange) {
+		this.priceRange = priceRange;
+	}
+	
+	
 
 }
