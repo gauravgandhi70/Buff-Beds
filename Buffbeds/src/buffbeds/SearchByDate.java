@@ -2,8 +2,17 @@ package buffbeds;
 
 public class SearchByDate {
 
+	private String daterange;
+	
 	public SearchByDate() {
-		// Default constructor stub
+		
 	}
 
+	public String getDaterange() {
+		return daterange;
+	}
+
+	public void setDaterange(String daterange) {
+		this.daterange = daterange;
+	}
 }
